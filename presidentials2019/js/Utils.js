@@ -35,7 +35,7 @@ export const tooltipHTML = (d) => {
         d.properties.joined.candidate1 + " votes: " + d3.format(".2f")(d.properties.joined.rate1) + "% </br>" +
         "Electoral district: " + d.properties.joined.electoralDistrict + "</br>" +
         "Total valid votes: " + d.properties.joined.totValidVotes.toLocaleString() + "</br>" +
-        "Valid votes / km²: " + d.properties.joined.vvot_sqkm + "</br>";
+        ( (d.properties.cod_birou !== 48) ? "Valid votes / km²: " + d.properties.joined.vvot_sqkm : ""  + "</br>" );
 };
 
 export const unHighlight = (d) => {
