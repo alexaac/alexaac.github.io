@@ -5,21 +5,21 @@ export const groupvotesByCounties = (data) => {
     let resultByCounty = [];
     data.reduce( (res, data_row) => {
         const columns = ['c', 'g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8', 'g9', 'g10', 'g11', 'g12', 'g13', 'g14'];
+        const district_code = data_row['Cod birou electoral'];
 
-        if (!res[data_row['Cod birou electoral']]) {
-            res[data_row['Cod birou electoral']] = {
-               'Cod birou electoral': data_row['Cod birou electoral'],
+        if (!res[district_code]) {
+            res[district_code] = {
+               'Cod birou electoral': district_code,
                'Județ': data_row['Județ']
             };
             columns.forEach( col => {
-                res[data_row['Cod birou electoral']][col] = 0;               
+                res[district_code][col] = 0;
             });
-            res[data_row['Cod birou electoral']]
 
-            resultByCounty.push(res[data_row['Cod birou electoral']]);
+            resultByCounty.push(res[district_code]);
         };
         columns.forEach( col => {
-            res[data_row['Cod birou electoral']][col] += Number(data_row[col]);
+            res[district_code][col] += Number(data_row[col]);
         });
 
         return res;
@@ -65,17 +65,18 @@ export const setVotesByCodeGroup = (data, an) => {
     let votesByCode = d3.map();
     data.forEach( d => {
         let fieldMap = Config.fieldMap(d);
-        votesByCode.set(fieldMap['Cod birou electoral'][an], {
-            'totValidVotes': fieldMap.totValidVotes[an],
-            'vote1': fieldMap.vote1[an],
-            'candidate1': fieldMap.candidate1[an],
-            'vote2': fieldMap.vote2[an],
-            'candidate2': fieldMap.candidate2[an],
-            'electoralDistrict': fieldMap.electoralDistrict[an],
-            'rate1': fieldMap.rate1[an],
-            'rate1Color': fieldMap.rate1Color[an],
-            'rate2': fieldMap.rate2[an],
-            'rate2Color': fieldMap.rate2Color[an],
+        votesByCode.set(fieldMap.code[an], {
+            code: fieldMap.code[an],
+            totValidVotes: fieldMap.totValidVotes[an],
+            vote1: fieldMap.vote1[an],
+            candidate1: fieldMap.candidate1[an],
+            vote2: fieldMap.vote2[an],
+            candidate2: fieldMap.candidate2[an],
+            electoralDistrict: fieldMap.electoralDistrict[an],
+            rate1: fieldMap.rate1[an],
+            rate1Color: fieldMap.rate1Color[an],
+            rate2: fieldMap.rate2[an],
+            rate2Color: fieldMap.rate2Color[an],
         });
     });
 

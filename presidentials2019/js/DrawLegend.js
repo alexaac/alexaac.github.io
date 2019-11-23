@@ -178,7 +178,6 @@ export const drawCountiesTreemap = (data, svg) => {
 
     const keys = Object.keys(data);
     data = keys.map( v => {
-        data[v].county = v; 
         return { name: data[v]['Județ'], value: data[v].c };
     });
 
