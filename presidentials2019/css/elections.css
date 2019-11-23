@@ -85,7 +85,7 @@ tooltip_div.tooltip {
     display: none;
 }
 
-g.features path:hover, g.bar rect:hover, .bubble:hover {
+g.features path:hover, g.bar rect:hover, .bubble:hover, .districts:hover {
     stroke: #00ffff;
     stroke-width: 2px;
     fill-opacity: 0.8;

@@ -216,6 +216,7 @@ export const drawCountiesTreemap = (votesStats, layer, svg) => {
   
     leaf.append("rect")
         .attr("id", d => d.data.id)
+        .attr("class", "districts")
         .attr("fill", d => { while (d.depth > 1) d = d.parent; return color(d.data.name); })
         .attr("fill-opacity", 0.6)
         .attr("width", d => d.x1 - d.x0)
