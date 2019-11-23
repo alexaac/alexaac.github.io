@@ -1,4 +1,5 @@
 import * as Config from './Config.js'
+import * as Stats from './Stats.js'
 
 const formatCountyData = (data, votesByCode) => {
     Config.LAYERLIST.forEach( layer => {
@@ -36,12 +37,23 @@ const formatCountyData = (data, votesByCode) => {
     return data;
 }
 
-const mapDataFactory = (data, votesByCode) => {
-    
+const mapDataFactory = (data, electionsData, electionsDate) => {
+
+    const votesByCounties = Stats.groupvotesByCounties(electionsData),
+        votesByCandidates = Stats.groupVotesByCandidates(votesByCounties),
+        votesByCode = Stats.setVotesByCodeGroup(votesByCounties, electionsDate);
+
     const formattedData = formatCountyData(data, votesByCode);
 
+    const votesStats = {
+        formattedData: formattedData,
+        votesByCounties: votesByCounties,
+        votesByCandidates: votesByCandidates,
+        votesByCode: votesByCode
+    };
+
     return (callback, layer, svg) => {
-        return callback(formattedData, layer, svg, votesByCode);
+        return callback(votesStats, layer, svg);
     }
 };
 

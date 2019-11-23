@@ -62,48 +62,48 @@ export const fieldMap = (d) => {
 
     return {
         code: {
-            'alegeri_2014': d['Cod Birou Electoral'],
-            'alegeri_2019': d['Cod birou electoral']
+            '2014': d['Cod Birou Electoral'],
+            '2019': d['Cod birou electoral']
         },
         totValidVotes: {
-            'alegeri_2014': d['Numărul total al voturilor valabil exprimate'],
-            'alegeri_2019': d['c']
+            '2014': d['Numărul total al voturilor valabil exprimate'],
+            '2019': d['c']
         },
         vote1: {
-            'alegeri_2014': d['VICTOR-VIOREL PONTA'],
-            'alegeri_2019': d['g5']
+            '2014': d['VICTOR-VIOREL PONTA'],
+            '2019': d['g5']
         },
         candidate1: {
-            'alegeri_2014': CANDIDATES_2014['g5'],
-            'alegeri_2019': CANDIDATES_2019['g5'],
+            '2014': CANDIDATES_2014['g5'],
+            '2019': CANDIDATES_2019['g5'],
         },
         vote2: {
-            'alegeri_2014': d['KLAUS-WERNER IOHANNIS'],
-            'alegeri_2019': d['g1']
+            '2014': d['KLAUS-WERNER IOHANNIS'],
+            '2019': d['g1']
         },
         candidate2: {
-            'alegeri_2014': CANDIDATES_2014['g1'],
-            'alegeri_2019': CANDIDATES_2019['g1'],
+            '2014': CANDIDATES_2014['g1'],
+            '2019': CANDIDATES_2019['g1'],
         },
         electoralDistrict: {
-            'alegeri_2014': d['Nume Judet'],
-            'alegeri_2019': d['Județ']
+            '2014': d['Nume Judet'],
+            '2019': d['Județ']
         },
         rate1: {
-            'alegeri_2014': d['VICTOR-VIOREL PONTA'] / d['Numărul total al voturilor valabil exprimate'] * 100,
-            'alegeri_2019': d.g5 / d.c * 100,
+            '2014': d['VICTOR-VIOREL PONTA'] / d['Numărul total al voturilor valabil exprimate'] * 100,
+            '2019': d.g5 / d.c * 100,
         },
         rate1Color: {
-            'alegeri_2014': Utils.roundToNearestMultipleOf(5)(d['VICTOR-VIOREL PONTA'] / d['Numărul total al voturilor valabil exprimate'] * 100),
-            'alegeri_2019': Utils.roundToNearestMultipleOf(5)(d.g5 / d.c * 100),
+            '2014': Utils.roundToNearestMultipleOf(5)(d['VICTOR-VIOREL PONTA'] / d['Numărul total al voturilor valabil exprimate'] * 100),
+            '2019': Utils.roundToNearestMultipleOf(5)(d.g5 / d.c * 100),
         },
         rate2: {
-            'alegeri_2014': d['KLAUS-WERNER IOHANNIS'] / d['Numărul total al voturilor valabil exprimate'] * 100,
-            'alegeri_2019': d.g1 / d.c * 100,
+            '2014': d['KLAUS-WERNER IOHANNIS'] / d['Numărul total al voturilor valabil exprimate'] * 100,
+            '2019': d.g1 / d.c * 100,
         },
         rate2Color: {
-            'alegeri_2014': Utils.roundToNearestMultipleOf(5)(d['KLAUS-WERNER IOHANNIS'] / d['Numărul total al voturilor valabil exprimate'] * 100),
-            'alegeri_2019': Utils.roundToNearestMultipleOf(5)(d.g1 / d.c * 100)
+            '2014': Utils.roundToNearestMultipleOf(5)(d['KLAUS-WERNER IOHANNIS'] / d['Numărul total al voturilor valabil exprimate'] * 100),
+            '2019': Utils.roundToNearestMultipleOf(5)(d.g1 / d.c * 100)
         }
     }
 }

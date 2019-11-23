@@ -2,8 +2,10 @@ import * as Config from './Config.js';
 import * as Utils from './Utils.js';
 import { drawAreaLegend } from './DrawLegend.js';
 
-export const draw = (data, layer, svg) => {
-    const nodes = topojson.feature(data, data.objects[layer]).features;
+export const draw = (votesStats, layer, svg) => {
+    const geoData = votesStats.formattedData;
+
+    const nodes = topojson.feature(geoData, geoData.objects[layer]).features;
 
     const mapFeatures = svg.append("g")
         .attr("class", "features")
@@ -20,7 +22,7 @@ export const draw = (data, layer, svg) => {
 
     let dataForLabels = nodes;
     if (layer === 'counties_cart_hex_10000_wgs84') {
-        const hexDissolved = topojson.feature(data, data.objects['counties_cart_hex_10000d_wgs84']).features;
+        const hexDissolved = topojson.feature(geoData, geoData.objects['counties_cart_hex_10000d_wgs84']).features;
 
         const mapOverlayFeatures = svg.append("g")
             .attr("class", "features-overlay")
@@ -66,8 +68,10 @@ export const draw = (data, layer, svg) => {
     }
 };
 
-export const drawDorling = (geo_data, layer, svg) => {
+export const drawDorling = (votesStats, layer, svg) => {
     // https://bl.ocks.org/nitaku/49a6bde57d8d8555b6823c8c6d05c5a8/ac5cc21562ba29d015a6375d9a8e854020eede1f
+
+    const geo_data = votesStats.formattedData;
 
     const zoomableLayer = svg.append('g');
     const radius = d3.scaleSqrt().range([0, 55]);
@@ -182,8 +186,10 @@ export const drawDorling = (geo_data, layer, svg) => {
     
 };
 
-export const drawDemers = (geo_data, layer, svg) => {
+export const drawDemers = (votesStats, layer, svg) => {
     // https://bl.ocks.org/martgnz/34880f7320eb5a6745e2ed7de7914223
+
+    const geo_data = votesStats.formattedData;
 
     const padding = 3;
     const land = topojson.merge(geo_data, geo_data.objects.counties_wgs84.geometries);
@@ -281,10 +287,12 @@ export const drawDemers = (geo_data, layer, svg) => {
     });
 };
 
-export const drawNonCont = (data, layer, svg) => {
+export const drawNonCont = (votesStats, layer, svg) => {
     // https://strongriley.github.io/d3/ex/cartogram.html
 
-    const nodes = topojson.feature(data, data.objects[layer]).features;
+    const geo_data = votesStats.formattedData;
+
+    const nodes = topojson.feature(geo_data, geo_data.objects[layer]).features;
     
     svg.append("g")
         .attr("class", "black")

@@ -1,8 +1,10 @@
 import * as Utils from './Utils.js'
 import * as Config from './Config.js'
 
-export const drawScaleBar = (data, layer, svg) => {
+export const drawScaleBar = (votesStats, layer, svg) => {
     //https://bl.ocks.org/HarryStevens/8c8d3a489aa1372e14b8084f94b32464
+
+    let data = votesStats.formattedData;
 
     data = topojson.feature(data, {
         type: "GeometryCollection",
@@ -37,7 +39,9 @@ export const drawScaleBar = (data, layer, svg) => {
 
 };
 
-export const drawVotesPercentageLegend = (data, layer, svg) => {
+export const drawVotesPercentageLegend = (votesStats, layer, svg) => {
+
+    const data = votesStats.formattedData;
 
     let layerData = topojson.feature(data, data.objects[layer]).features;
 
@@ -106,8 +110,10 @@ export const drawVotesPercentageLegend = (data, layer, svg) => {
 
 };
 
-export const drawVotesByPopulationLegend = (data, layer, svg) => {
+export const drawVotesByPopulationLegend = (votesStats, layer, svg) => {
     // http://www.ralphstraumann.ch/projects/swiss-population-cartogram/
+
+    const data = votesStats.formattedData;
 
     let layerData = topojson.feature(data, data.objects[layer]).features;
 
@@ -173,12 +179,14 @@ export const drawVotesByPopulationLegend = (data, layer, svg) => {
 
 };
 
-export const drawCountiesTreemap = (data, svg) => {
+export const drawCountiesTreemap = (votesStats, layer, svg) => {
     // https://bl.ocks.org/mbostock/4063582
 
-    const keys = Object.keys(data);
-    data = keys.map( v => {
-        return { name: data[v]['Județ'], value: data[v].c };
+    const votesByCounties = votesStats.votesByCounties;
+
+    const keys = Object.keys(votesByCounties);
+    let data = keys.map( v => {
+        return { name: votesByCounties[v]['Județ'], value: votesByCounties[v].c };
     });
 
     data = { 
@@ -242,18 +250,18 @@ export const drawCountiesTreemap = (data, svg) => {
   
 };
 
-export const drawCandidatesDonut = (data, svg) => {
+export const drawCandidatesDonut = (votesStats, layer, svg) => {
     // bl.ocks.org/nbremer/b603c3e0f7a74794da87/519786faa068384a3b9a08c45ba3a8f356b84407
 
+    const votesByCandidates = votesStats.votesByCandidates;
     const radius = Math.min(Config.width, Config.height) / 2 - 40;
 
     const color = d3.scaleOrdinal()
         .range(d3.schemeDark2);
 
-    const keys = Object.keys(data);
-    data = keys.map( v => {
-        data[v].candidate = v; 
-        return { name: v, value: data[v].total, percent: data[v].rateCountry  }; 
+    const keys = Object.keys(votesByCandidates);
+    const data = keys.map( v => {
+        return { name: v, value: votesByCandidates[v].total, percent: votesByCandidates[v].rateCountry  };
     });
     
     const g = svg.append("g")

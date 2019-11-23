@@ -1,5 +1,4 @@
 import * as Config from './Config.js'
-import * as Stats from './Stats.js'
 import mapDataFactory from './MapFactory.js'
 import * as DrawLegend from './DrawLegend.js'
 import * as DrawMaps from './DrawMaps.js'
@@ -22,7 +21,7 @@ import * as DrawMaps from './DrawMaps.js'
     const svg10 = d3.select("#counties-treemap").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "0 0 " + width + " " + height);
 
     let promiseData = [];
-    let dataAlegeri = "2019";
+    let electionsDate = "2019";
 
     const promises = [
         d3.json("./data/counties_bundle.json"),
@@ -32,28 +31,23 @@ import * as DrawMaps from './DrawMaps.js'
 
     Promise.all(promises).then( data => {
         promiseData = data;
-        changeView(dataAlegeri, promiseData);
+        changeView(promiseData, electionsDate);
     }).catch( 
         // error => console.log(error) 
     );
 
-    const changeView = (dataAlegeri, data) => {
+    const changeView = (data, electionsDate) => {
         const geographicData = data[0],
               electionsData2019RO = data[1],
               electionsData2019SR = data[2];
 
         const electionsData2019 = [...electionsData2019RO, ...electionsData2019SR];
 
-        let votesByCounties = [],
-            votesByCode = {};
-
-        votesByCounties = Stats.groupvotesByCounties(electionsData2019);
-        votesByCode = Stats.setVotesByCodeGroup(votesByCounties, 'alegeri_2019');
-
-        const mapVehicle = mapDataFactory(geographicData, votesByCode);
+        const mapVehicle = mapDataFactory(geographicData, electionsData2019, electionsDate);
 
         mapVehicle(DrawLegend.drawVotesPercentageLegend, 'counties_wgs84', svg1);
         mapVehicle(DrawLegend.drawVotesByPopulationLegend, 'counties_wgs84', svg2);
+
         mapVehicle(DrawMaps.draw, 'counties_wgs84', svg3);
         mapVehicle(DrawMaps.draw, 'counties_cart_wgs84', svg4);
         mapVehicle(DrawMaps.draw, 'counties_cart_hex_10000_wgs84', svg5);
@@ -62,10 +56,9 @@ import * as DrawMaps from './DrawMaps.js'
         mapVehicle(DrawMaps.drawNonCont, 'counties_wgs84', svg8);
 
         mapVehicle(DrawLegend.drawScaleBar, 'counties_wgs84', svg3);
+        mapVehicle(DrawLegend.drawCandidatesDonut, 'counties_wgs84', svg9);
+        mapVehicle(DrawLegend.drawCountiesTreemap, 'counties_wgs84', svg10);
 
-        const votesByCandidates = Stats.groupVotesByCandidates(votesByCounties);
-        DrawLegend.drawCandidatesDonut(votesByCandidates, svg9);
-        DrawLegend.drawCountiesTreemap(votesByCounties, svg10);
     };
 
 }).call(this);

@@ -61,22 +61,22 @@ export const groupVotesByCandidates = (resultByCounty) => {
     return resultByCandidates;
 };
 
-export const setVotesByCodeGroup = (data, an) => {
+export const setVotesByCodeGroup = (data, electionsDate) => {
     let votesByCode = d3.map();
     data.forEach( d => {
         let fieldMap = Config.fieldMap(d);
-        votesByCode.set(fieldMap.code[an], {
-            code: fieldMap.code[an],
-            totValidVotes: fieldMap.totValidVotes[an],
-            vote1: fieldMap.vote1[an],
-            candidate1: fieldMap.candidate1[an],
-            vote2: fieldMap.vote2[an],
-            candidate2: fieldMap.candidate2[an],
-            electoralDistrict: fieldMap.electoralDistrict[an],
-            rate1: fieldMap.rate1[an],
-            rate1Color: fieldMap.rate1Color[an],
-            rate2: fieldMap.rate2[an],
-            rate2Color: fieldMap.rate2Color[an],
+        votesByCode.set(fieldMap.code[electionsDate], {
+            code: fieldMap.code[electionsDate],
+            totValidVotes: fieldMap.totValidVotes[electionsDate],
+            vote1: fieldMap.vote1[electionsDate],
+            candidate1: fieldMap.candidate1[electionsDate],
+            vote2: fieldMap.vote2[electionsDate],
+            candidate2: fieldMap.candidate2[electionsDate],
+            electoralDistrict: fieldMap.electoralDistrict[electionsDate],
+            rate1: fieldMap.rate1[electionsDate],
+            rate1Color: fieldMap.rate1Color[electionsDate],
+            rate2: fieldMap.rate2[electionsDate],
+            rate2Color: fieldMap.rate2Color[electionsDate],
         });
     });
 
