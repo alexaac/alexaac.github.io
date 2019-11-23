@@ -190,7 +190,7 @@ export const drawCountiesTreemap = (votesStats, layer, svg) => {
     });
 
     data = { 
-        "name": "România",
+        "name": "Districts",
         "children": data
     };
 
@@ -214,9 +214,6 @@ export const drawCountiesTreemap = (votesStats, layer, svg) => {
       .join("g")
         .attr("transform", d => `translate(${d.x0},${d.y0})`);
   
-    leaf.append("title")
-        .text(d => `${d.ancestors().reverse().map(d => d.data.name).join("/")}\n${format(d.value)} votes`);
-  
     leaf.append("rect")
         .attr("id", d => d.data.id)
         .attr("fill", d => { while (d.depth > 1) d = d.parent; return color(d.data.name); })
@@ -224,12 +221,17 @@ export const drawCountiesTreemap = (votesStats, layer, svg) => {
         .attr("width", d => d.x1 - d.x0)
         .attr("height", d => d.y1 - d.y0)
         .on("mouseover", function(d) {
-            d3.select(this)     
-                .attr("style", "stroke: #00ffff; stroke-width: 2px; fill-opacity: 0.8; cursor: pointer;");
-            })
+            Utils.tooltip_div.transition()
+                .duration(200)
+                .style("opacity", .9);
+            Utils.tooltip_div.html(`${d.ancestors().reverse().map(d => d.data.name).join("/")}</br>${format(d.value)} votes`)
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+        })
         .on("mouseout", function(d) {
-            d3.select(this)
-                .attr("style", "stroke: none; cursor: none;");
+            Utils.tooltip_div.transition()
+                .duration(500)
+                .style("opacity", 0);
             });
   
     leaf.append("clipPath")
