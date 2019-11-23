@@ -15,6 +15,7 @@ const formatCountyData = (data, votesByCode) => {
                 d.properties.joined = {
                     code: d.properties.cod_birou,
                     districtAbbr: d.properties.abbr,
+                    vvot_sqkm: d.properties.vvot_sqkm,
                     totValidVotes: votesByCode.get(d.properties.cod_birou).totValidVotes,
                     vote1: votesByCode.get(d.properties.cod_birou).vote1,
                     vote2: votesByCode.get(d.properties.cod_birou).vote2,

@@ -356,14 +356,15 @@ export const drawAreaLegend = (args) => {
 
     const data = args.data,
         variable = args.variable,
-        maxCircleSize = args.maxCircleSize,
+        legendText = args.legendText,
+        maxAreaSize = args.maxAreaSize,
         maxData = d3.max(data, d => d.properties.joined[variable]),
-        circleScale = d3.scaleLinear()
-            .range([5, maxCircleSize])
+        areaScale = d3.scaleLinear()
+            .range([5, maxAreaSize])
             .domain([0, maxData]),
         legendTextLeftPad = 8,
-        legendWidth = maxCircleSize * 3,
-        legendHeight = maxCircleSize * 2 + 10,
+        legendWidth = maxAreaSize * 3,
+        legendHeight = maxAreaSize * 2 + 10,
         legend = args.svg.append("g")
                     .attrs({
                         transform: d => `translate(${10},${Config.height - 200})`
@@ -371,54 +372,54 @@ export const drawAreaLegend = (args) => {
                     .attr("width", legendWidth)
                     .attr("height", legendHeight),
         legendData = [maxData, args.legendData[0], args.legendData[1]],
-        legendCircle = (args.typeOfArea === "circle")
-            ? legend.selectAll(".legend-circle")
+        legendArea = (args.typeOfArea === "circle")
+            ? legend.selectAll(".legend-area")
                 .data(legendData)
                     .enter().append("circle")
-                        .attr("class", "legend-circle")
-                        .attr("cy", d => circleScale(d) + 1)
-                        .attr("cx", circleScale(maxData) + 1)
-                        .attr("r", d => circleScale(d))
-            : legend.selectAll(".legend-circle")
+                        .attr("class", "legend-area")
+                        .attr("cy", d => areaScale(d) + 1)
+                        .attr("cx", areaScale(maxData) + 1)
+                        .attr("r", d => areaScale(d))
+            : legend.selectAll(".legend-area")
                 .data(legendData)
                     .enter().append("rect")
-                        .attr("class", "legend-circle")
-                        .attr("cy", d => circleScale(d) + 1)
-                        .attr("cx", circleScale(maxData) + 1)
-                        .attr("width", d => { return circleScale(d); })
-                        .attr("height", d => { return circleScale(d); }),
+                        .attr("class", "legend-area")
+                        .attr("cy", d => areaScale(d) + 1)
+                        .attr("cx", areaScale(maxData) + 1)
+                        .attr("width", d => { return areaScale(d); })
+                        .attr("height", d => { return areaScale(d); }),
         legendDottedLine = (args.typeOfArea === "circle")
             ? legend.selectAll(".legend-dotted-line")
                 .data(legendData)
                     .enter().append("line")
                         .attr("class", "legend-dotted-line")
-                        .attr("x1", circleScale(maxData) + 1)
-                        .attr("x2", circleScale(maxData) * 2 + legendTextLeftPad)
-                        .attr("y1", d => circleScale(d) * 2 + 1)
-                        .attr("y2", d => circleScale(d) * 2 + 1)
+                        .attr("x1", areaScale(maxData) + 1)
+                        .attr("x2", areaScale(maxData) * 2 + legendTextLeftPad)
+                        .attr("y1", d => areaScale(d) * 2 + 1)
+                        .attr("y2", d => areaScale(d) * 2 + 1)
             : legend.selectAll(".legend-dotted-line")
                 .data(legendData)
                     .enter().append("line")
                         .attr("class", "legend-dotted-line")
-                        .attr("x1", circleScale(maxData) + 1)
-                        .attr("x2", circleScale(maxData) + legendTextLeftPad)
-                        .attr("y1", d => circleScale(d))
-                        .attr("y2", d => circleScale(d)),
+                        .attr("x1", areaScale(maxData) + 1)
+                        .attr("x2", areaScale(maxData) + legendTextLeftPad)
+                        .attr("y1", d => areaScale(d))
+                        .attr("y2", d => areaScale(d)),
         legendNumber = (args.typeOfArea === "circle")
             ? legend.selectAll(".legend-number")
                 .data(legendData)
                     .enter().append("text")
                         .attr("class", "legend-number")
-                        .attr("x", circleScale(maxData) * 2 + legendTextLeftPad)
-                        .attr("y", d => circleScale(d) * 2 + 5)
-                        .text((d, i) => d + (i == legendData.length - 1 ? " " + variable : ""))
+                        .attr("x", areaScale(maxData) * 2 + legendTextLeftPad)
+                        .attr("y", d => areaScale(d) * 2 + 5)
+                        .text((d, i) => d + (i == legendData.length - 1 ? " " + legendText : ""))
             : legend.selectAll(".legend-number")
                 .data(legendData)
                     .enter().append("text")
                         .attr("class", "legend-number")
-                        .attr("x", circleScale(maxData) + legendTextLeftPad)
-                        .attr("y", d => circleScale(d) + 5)
-                        .text((d, i) => d + (i == legendData.length - 1 ? " " + variable : ""));
+                        .attr("x", areaScale(maxData) + legendTextLeftPad)
+                        .attr("y", d => areaScale(d) + 5)
+                        .text((d, i) => d + (i == legendData.length - 1 ? " " + legendText : ""));
     
     return 1;
 

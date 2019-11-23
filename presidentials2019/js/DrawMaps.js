@@ -49,20 +49,22 @@ export const draw = (votesStats, layer, svg) => {
         if (layer.match("counties_cart_")) {
             drawAreaLegend( {
                 "typeOfArea": 'circle',
-                "data": nodes, 
+                "data": nodes,
                 "variable": "totValidVotes",
-                "maxCircleSize": 55, 
+                "maxAreaSize": 55,
                 "svg": svg,
-                "legendData": [300000, 100000]
+                "legendData": [300000, 100000],
+                "legendText": "Total valid votes",
             });
         } else {
             drawAreaLegend( {
                 "typeOfArea": 'square',
                 "data": nodes, 
                 "variable": "totValidVotes",
-                "maxCircleSize": 120, 
+                "maxAreaSize": 120,
                 "svg": svg,
-                "legendData": [300000, 100000]
+                "legendData": [300000, 100000],
+                "legendText": "Total valid votes",
             });
         }
     }
@@ -172,11 +174,12 @@ export const drawDorling = (votesStats, layer, svg) => {
 
         drawAreaLegend( {
             "typeOfArea": 'circle',
-            "data": nodes, 
+            "data": nodes,
             "variable": "totValidVotes", 
-            "maxCircleSize": 55, 
+            "maxAreaSize": 55,
             "svg": svg,
-            "legendData": [300000, 100000]
+            "legendData": [300000, 100000],
+            "legendText": "Total valid votes",
         });
 
         return getBubbles();
@@ -279,11 +282,12 @@ export const drawDemers = (votesStats, layer, svg) => {
 
     drawAreaLegend( {
         "typeOfArea": 'square',
-        "data": nodes, 
-        "variable": "totValidVotes", 
-        "maxCircleSize": 120, 
+        "data": nodes,
+        "variable": "totValidVotes",
+        "maxAreaSize": 120,
         "svg": svg,
-        "legendData": [300000, 100000]
+        "legendData": [300000, 100000],
+        "legendText": "Total valid votes",
     });
 };
 
@@ -343,11 +347,12 @@ export const drawNonCont = (votesStats, layer, svg) => {
 
         drawAreaLegend( {
             "typeOfArea": 'square',
-            "data": nodes, 
+            "data": nodes,
             "variable": "totValidVotes_rate",
-            "maxCircleSize": 120, 
+            "maxAreaSize": 120,
             "svg": svg,
-            "legendData": [300000, 100000]
+            "legendData": [300000, 100000],
+            "legendText": "Total valid votes",
         });
 
 };
