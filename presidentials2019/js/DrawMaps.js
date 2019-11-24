@@ -5,6 +5,13 @@ import { drawAreaLegend } from './DrawLegend.js';
 export const draw = (votesStats, layer, svg) => {
     const geoData = votesStats.formattedData;
 
+    var geojsonFeatures = topojson.feature(geoData, {
+        type: "GeometryCollection",
+        geometries: geoData.objects[layer].geometries
+    });
+    const thisMapPath = d3.geoPath()
+        .projection(Config.projection.fitSize([Config.width, Config.height], geojsonFeatures));
+
     const nodes = topojson.feature(geoData, geoData.objects[layer]).features;
 
     const mapFeatures = svg.append("g")
@@ -15,10 +22,16 @@ export const draw = (votesStats, layer, svg) => {
     mapFeatures.enter()
         .append("path")
         .attr("fill", d => Utils.colorLayers(d))
-            .attr("d", Config.path)
+            .attr("d", thisMapPath)
                 .attr("class", d => `CO-${d.properties.joined.code}`)
                 .on("mouseover", d => Utils.highlight(d)) 
                 .on("mouseout", d => Utils.unHighlight(d));
+
+    mapFeatures.exit()
+        .each(function (d) {
+            this._xhr.abort();
+        })
+        .remove();
 
     let dataForLabels = nodes;
     if (layer === 'counties_cart_hex_10000_wgs84') {
@@ -32,7 +45,7 @@ export const draw = (votesStats, layer, svg) => {
         mapOverlayFeatures.enter()
             .append("path")
                 .attr("fill", "none")
-                .attr("d", Config.path);
+                .attr("d", thisMapPath);
 
         dataForLabels = hexDissolved;
     };
@@ -41,7 +54,7 @@ export const draw = (votesStats, layer, svg) => {
         .data(dataForLabels)
         .enter().append("text")
             .attr("class", "feature-label" )
-            .attr("transform", d => `translate(${Config.path.centroid(d)})`)
+            .attr("transform", d => `translate(${thisMapPath.centroid(d)})`)
             .attr("dy", ".35em")
             .text( d => d.properties.joined.districtAbbr);
 
@@ -73,7 +86,14 @@ export const draw = (votesStats, layer, svg) => {
 export const drawDorling = (votesStats, layer, svg) => {
     // https://bl.ocks.org/nitaku/49a6bde57d8d8555b6823c8c6d05c5a8/ac5cc21562ba29d015a6375d9a8e854020eede1f
 
-    const geo_data = votesStats.formattedData;
+    const geoData = votesStats.formattedData;
+
+    var geojsonFeatures = topojson.feature(geoData, {
+        type: "GeometryCollection",
+        geometries: geoData.objects[layer].geometries
+    });
+    const thisMapPath = d3.geoPath()
+        .projection(Config.projection.fitSize([Config.width, Config.height], geojsonFeatures));
 
     const zoomableLayer = svg.append('g');
     const radius = d3.scaleSqrt().range([0, 55]);
@@ -88,10 +108,10 @@ export const drawDorling = (votesStats, layer, svg) => {
     const contents = zoomableLayer.append('g');
 
     const getGeo = () => {
-        const land = topojson.merge(geo_data, geo_data.objects.counties_wgs84.geometries);
-        contents.append('path').attrs({ "class": 'land', d: Config.path(land) });
+        const land = topojson.merge(geoData, geoData.objects.counties_wgs84.geometries);
+        contents.append('path').attrs({ "class": 'land', d: thisMapPath(land) });
 
-        const nodes = topojson.feature(geo_data, geo_data.objects[layer]).features;
+        const nodes = topojson.feature(geoData, geoData.objects[layer]).features;
         nodes.forEach( d => {
             if (d.geometry.type === 'Polygon') {
                 return d.main = d;
@@ -192,13 +212,20 @@ export const drawDorling = (votesStats, layer, svg) => {
 export const drawDemers = (votesStats, layer, svg) => {
     // https://bl.ocks.org/martgnz/34880f7320eb5a6745e2ed7de7914223
 
-    const geo_data = votesStats.formattedData;
+    const geoData = votesStats.formattedData;
+
+    var geojsonFeatures = topojson.feature(geoData, {
+        type: "GeometryCollection",
+        geometries: geoData.objects[layer].geometries
+    });
+    const thisMapPath = d3.geoPath()
+        .projection(Config.projection.fitSize([Config.width, Config.height], geojsonFeatures));
 
     const padding = 3;
-    const land = topojson.merge(geo_data, geo_data.objects.counties_wgs84.geometries);
-    svg.append('path').attrs({ "class": 'land', d: Config.path(land) });
+    const land = topojson.merge(geoData, geoData.objects.counties_wgs84.geometries);
+    svg.append('path').attrs({ "class": 'land', d: thisMapPath(land) });
 
-    const nodes = topojson.feature(geo_data, geo_data.objects[layer]).features;
+    const nodes = topojson.feature(geoData, geoData.objects[layer]).features;
     const font = d3.scaleLinear()
         .range([6, 20])
         .domain(d3.extent(nodes, d => d.properties.joined.totValidVotes));
@@ -207,7 +234,7 @@ export const drawDemers = (votesStats, layer, svg) => {
         .domain(d3.extent(nodes, d => d.properties.joined.totValidVotes));
 
     nodes.forEach( d => {
-        d.pos = Config.path.centroid(d);
+        d.pos = thisMapPath.centroid(d);
         d.area = size(d.properties.joined.totValidVotes);
         [d.x, d.y] = d.pos;
     });
@@ -294,9 +321,15 @@ export const drawDemers = (votesStats, layer, svg) => {
 export const drawNonCont = (votesStats, layer, svg) => {
     // https://strongriley.github.io/d3/ex/cartogram.html
 
-    const geo_data = votesStats.formattedData;
+    const geoData = votesStats.formattedData;
+    var geojsonFeatures = topojson.feature(geoData, {
+        type: "GeometryCollection",
+        geometries: geoData.objects[layer].geometries
+    });
+    const thisMapPath = d3.geoPath()
+        .projection(Config.projection.fitSize([Config.width, Config.height], geojsonFeatures));
 
-    const nodes = topojson.feature(geo_data, geo_data.objects[layer]).features;
+    const nodes = topojson.feature(geoData, geoData.objects[layer]).features;
     
     svg.append("g")
         .attr("class", "black")
@@ -304,14 +337,14 @@ export const drawNonCont = (votesStats, layer, svg) => {
             .data(nodes)
             .enter()
             .append("path")
-            .attr("d", Config.path);
+            .attr("d", thisMapPath);
     svg.append("g")
         .attr("class", "land")
         .selectAll("path")
             .data(nodes)
             .enter()
             .append("path")
-            .attr("d", Config.path);
+            .attr("d", thisMapPath);
 
     svg.append("g")
         .attr("class", "white")
@@ -321,14 +354,14 @@ export const drawNonCont = (votesStats, layer, svg) => {
             .append("path")
             .attr("fill", d => Utils.colorLayers(d))
             .attr("transform", d => {
-                const centroid = Config.path.centroid(d),
+                const centroid = thisMapPath.centroid(d),
                     x = centroid[0],
                     y = centroid[1];
                 return `translate(${x},${y})`
                     + `scale(${Math.sqrt(d.properties.joined.totValidVotes / 300000) || 0})`
                     + `translate(${-x},${-y})`;
             })
-            .attr("d", Config.path)
+            .attr("d", thisMapPath)
             .attr("class", d => `CO-${d.properties.joined.code}` )
                 .on("mouseover", d => Utils.highlight(d)) 
                 .on("mouseout", d => Utils.unHighlight(d));
@@ -337,7 +370,7 @@ export const drawNonCont = (votesStats, layer, svg) => {
         .data(nodes)
         .enter().append("text")
             .attr("class", "feature-label" )
-            .attr("transform", d => `translate(${Config.path.centroid(d)})`)
+            .attr("transform", d => `translate(${thisMapPath.centroid(d)})`)
             .attr("dy", ".35em")
             .text( d => d.properties.joined.districtAbbr);
 

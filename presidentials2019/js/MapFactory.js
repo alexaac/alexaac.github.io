@@ -2,6 +2,7 @@ import * as Config from './Config.js'
 import * as Stats from './Stats.js'
 
 const formatCountyData = (data, votesByCounties, electionsDate) => {
+
     const electoralDataByDistrict = Stats.groupElectoralDataByDistrict(votesByCounties, electionsDate);
 
     Config.LAYERLIST.forEach( layer => {

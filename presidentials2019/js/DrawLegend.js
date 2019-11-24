@@ -18,14 +18,14 @@ export const drawScaleBar = (votesStats, layer, svg) => {
       .units("miles")
       .left(.45);
     const scaleBarMiles = g.append("g")
-        .attr("transform",  `translate(${-110},${Config.height - 40})`);
+        .attr("transform",  `translate(${-110},${Config.height})`);
 
     const kilometers = d3.geoScaleBar()
       .left(.45)
       .distance(100);
 
     const scaleBarKilometers = g.append("g")
-      .attr("transform",  `translate(${-110},${Config.height})`);
+      .attr("transform",  `translate(${-110},${Config.height + 40})`);
       const redraw = () => {
         projection.fitSize([Config.width, Config.height], data);
         miles.fitSize([Config.width, Config.height], data).projection(projection);
@@ -54,9 +54,9 @@ export const drawVotesPercentageLegend = (votesStats, layer, svg) => {
     const maxRate2 = values.reduce(( (a, b) => (a.properties.joined.rate2Color > b.properties.joined.rate2Color) ? a : b ), values[0]);
     
     const g = svg.append("g")
-        .attr("transform", "translate(290, 40)");
+        .attr("transform", "translate(290, 80)");
     const g1 = svg.append("g")
-        .attr("transform", "translate(0, 40)");
+        .attr("transform", "translate(0, 80)");
 
     const x = d3.scaleLinear()
         .domain([minRate1.properties.joined.rate1Color, maxRate1.properties.joined.rate1Color])
@@ -132,14 +132,14 @@ export const drawVotesByPopulationLegend = (votesStats, layer, svg) => {
 
     const y = d3.scaleBand()
         .domain(layerData.map( d => d.properties.joined.districtAbbr ))
-        .rangeRound([18, Config.height])
+        .rangeRound([78, Config.height])
         .padding(0.1);
 
     const xAxisCall = d3.axisTop(x)
         .ticks(5).tickSize(5);
     g.append("g")
         .attr("class", "x-axis")
-        .attr("transform", d => "translate(55,20)" )
+        .attr("transform", d => "translate(55,70)" )
         .call(xAxisCall)
         .selectAll("text")
             .attr("y", "-5");
@@ -263,10 +263,14 @@ export const drawCandidatesDonut = (votesStats, layer, svg) => {
         .range(d3.schemeDark2);
 
     const keys = Object.keys(votesByCandidates);
-    const data = keys.map( v => {
-        return { name: v, value: votesByCandidates[v].total, percent: votesByCandidates[v].rateCountry  };
+    let data = keys.map( v => { return {
+                name: v,
+                value: votesByCandidates[v].total,
+                percent: votesByCandidates[v].rateCountry,
+        }
     });
-    
+    data = data.filter( d => d.value !== 0);
+
     const g = svg.append("g")
         .attr("transform", `translate(${Config.width / 2},${Config.height / 2})`);
 
@@ -286,7 +290,6 @@ export const drawCandidatesDonut = (votesStats, layer, svg) => {
               let g = d3.select(this)
                 .append("g")
                 .attr("class", "text-group");
-         
               g.append("text")
                 .attr("class", "name-text")
                 .text(`${d.data.name}`)
@@ -324,10 +327,19 @@ export const drawCandidatesDonut = (votesStats, layer, svg) => {
                         const startLoc 	= /M(.*?)A/,
                             middleLoc 	= /A(.*?)0 0 1/,
                             endLoc 		= /0 0 1 (.*?)$/;
-                        const newStart = endLoc.exec( newArc )[1];
-                        const newEnd = startLoc.exec( newArc )[1];
-                        const middleSec = middleLoc.exec( newArc )[1];
-                        newArc = `M${newStart}A${middleSec}0 0 0${newEnd}`;
+                        let newStart, middleSec, newEnd;
+                        newEnd = startLoc.exec( newArc )[1];
+                        if (endLoc.exec( newArc )) {
+                            newStart = endLoc.exec( newArc )[1];
+                            middleSec = middleLoc.exec( newArc )[1];
+                            newArc = `M${newStart}A${middleSec}0 0 0${newEnd}`;
+                        } else {
+                            const middleLoc2 = /A(.*?)0 1 1/;
+                            const endLoc2 = /0 1 1 (.*?)$/;
+                            newStart = endLoc2.exec( newArc )[1];
+                            middleSec = middleLoc2.exec( newArc )[1];
+                            newArc = `M${newStart}A${middleSec}1 1 0${newEnd}`;
+                        }
                     }
             svg.append("path")
                 .attr("class", "hiddenDonutArcs")
@@ -340,7 +352,7 @@ export const drawCandidatesDonut = (votesStats, layer, svg) => {
             .data(pie(data))
                 .enter()
                     .append("text")
-                    .attr("font-size", 10 + "px")
+                    .attr("font-size", 12 + "px")
                     .attr("class", "donutText")
                     .attr("dy", (d,i) => d.endAngle > 90 * Math.PI/180 ? 18 : -11 )
                     .append("textPath")
@@ -367,7 +379,7 @@ export const drawAreaLegend = (args) => {
         legendHeight = maxAreaSize * 2 + 10,
         legend = args.svg.append("g")
                     .attrs({
-                        transform: d => `translate(${10},${Config.height - 200})`
+                        transform: d => `translate(${10},${Config.height - 120})`
                     })
                     .attr("width", legendWidth)
                     .attr("height", legendHeight),

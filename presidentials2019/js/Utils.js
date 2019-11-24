@@ -27,7 +27,7 @@ export const highlight = (d) => {
         .style("left", (d3.event.pageX) + "px")
         .style("top", (d3.event.pageY - 28) + "px");
     d3.selectAll(".CO-" + d.properties.joined.code)
-        .attr("style", "stroke: #00ffff; stroke-width: 2px; fill-opacity: 0.8; cursor: pointer;");
+        .attr("style", "stroke: #00ffff; stroke-Config.viewport_width: 2px; fill-opacity: 0.8; cursor: pointer;");
 };
 
 export const tooltipHTML = (d) => {
@@ -44,4 +44,30 @@ export const unHighlight = (d) => {
         .style("opacity", 0);
     d3.selectAll(".CO-" + d.properties.joined.code)
         .attr("style", "stroke: none; cursor: none;");
+}
+
+export const repaint = () => {
+    d3.select("#legend-percent").selectAll("*").remove();
+    d3.select("#legend-population").selectAll("*").remove();
+    d3.select("#geography").selectAll("*").remove();
+    d3.select("#gastner-c-cartogram").selectAll("*").remove();
+    d3.select("#gastner-g-cartogram").selectAll("*").remove();
+    d3.select("#dorling-cartogram").selectAll("*").remove();
+    d3.select("#demers-cartogram").selectAll("*").remove();
+    d3.select("#noncont-cartogram").selectAll("*").remove();
+    d3.select("#candidates-donut").selectAll("*").remove();
+    d3.select("#counties-treemap").selectAll("*").remove();
+
+    const svg1 = d3.select("#legend-percent").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-40 60 " + Config.viewport_width + " " + 150);
+    const svg2 = d3.select("#legend-population").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-40 60 " + Config.viewport_width + " " + Config.viewport_height);
+    const svg3 = d3.select("#geography").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-40 60 " + Config.viewport_width + " " + Config.viewport_height);
+    const svg4 = d3.select("#gastner-c-cartogram").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-40 60 " + Config.viewport_width + " " + Config.viewport_height);
+    const svg5 = d3.select("#gastner-g-cartogram").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-40 60 " + Config.viewport_width + " " + Config.viewport_height);
+    const svg6 = d3.select("#dorling-cartogram").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-40 60 " + Config.viewport_width + " " + Config.viewport_height);
+    const svg7 = d3.select("#demers-cartogram").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-40 60 " + Config.viewport_width + " " + Config.viewport_height);
+    const svg8 = d3.select("#noncont-cartogram").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-40 60 " + Config.viewport_width + " " + Config.viewport_height);
+    const svg9 = d3.select("#candidates-donut").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "0 0 " + Config.width + " " + Config.height);
+    const svg10 = d3.select("#counties-treemap").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "0 0 " + Config.width + " " + Config.height);
+
+    return [svg1, svg2, svg3, svg4, svg5, svg6, svg7, svg8, svg9, svg10];
 }

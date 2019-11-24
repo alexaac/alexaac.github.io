@@ -10,6 +10,7 @@ body {
     font-family: "Niconne", cursive;
     margin: 0px;
     padding: 0px;
+    background: url(../img/vintage.png);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -23,7 +24,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 div.row {
-    background-color: white;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     padding: 1em;
@@ -146,6 +146,69 @@ g.features path:hover, g.bar rect:hover, .bubble:hover, .districts:hover {
 }
 #top-btn:hover {
     background-color: #7dbbf1;
+}
+
+/* https://codepen.io/deineko/pen/jrmmoQ */
+
+.panel button {
+    color:#454545;
+    background: transparent;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #454545;
+    position: relative;
+    margin: 1em;
+    display: inline-block;
+    padding: 0.5em 1em;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+    font-family: "Niconne", cursive;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.panel button:before, .panel button:after {
+    content: '';
+    display: block;
+    position: absolute;
+    border-color :#454545;
+    box-sizing: border-box;
+    border-style: solid;
+    width: 1em;
+    height: 1em;
+    transition: all 0.3s ease-in-out
+}
+
+.panel button:before {
+    top: -6px;
+    left: -6px;
+    border-width: 2px 0 0 2px;
+    z-index: 5;
+}
+
+.panel button:after {
+    bottom: -6px;
+    right: -6px;
+    border-width: 0 2px 2px 0;
+}
+
+.panel button:hover:before, .panel button:hover:after {
+    width: calc(100% + 12px);
+    height: calc(100% + 12px);
+    border-color: #fff
+}
+
+.panel button:hover {
+    color: #353535;
+    background-color :#fff;
+    border-color: #fff
+}
+
+.panel {
+    max-width: 960px;
+    text-align: center;
+    position: relative;
+    margin: auto;
 }
 
 a {

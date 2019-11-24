@@ -44,7 +44,7 @@ export const groupVotesByCandidates = (resultByCounty) => {
         const keys = Object.keys(result);
         const votes = keys.map( v =>  result[v] );
         const total = votes.reduce((a, b) => a + b, 0);
-        result.total = total;
+        result.total = total || 0;
 
         resultByCandidates[Config.CANDIDATES_2019[col]] = result;
     });
@@ -52,7 +52,7 @@ export const groupVotesByCandidates = (resultByCounty) => {
     let keys = Object.keys(resultByCandidates);
 
     let totCountry = 0;
-    keys.forEach( k => totCountry += resultByCandidates[k].total );
+    keys.forEach( k => totCountry += resultByCandidates[k].total || 0);
     keys.forEach( k => {
         resultByCandidates[k].totalCountry = totCountry;
         resultByCandidates[k].rateCountry = ((resultByCandidates[k].total/totCountry) * 100).toFixed(3);
