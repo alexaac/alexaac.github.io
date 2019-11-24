@@ -22,6 +22,7 @@ import * as DrawMaps from './DrawMaps.js'
 
     let promiseData = [];
     let electionsDate = "2019";
+    let mapVehicle;
 
     const promises = [
         d3.json("./data/counties_bundle.json"),
@@ -31,19 +32,26 @@ import * as DrawMaps from './DrawMaps.js'
 
     Promise.all(promises).then( data => {
         promiseData = data;
-        changeView(promiseData, electionsDate);
+
+        mapVehicle = createMapVehicle(promiseData, electionsDate);
+
+        changeView(mapVehicle);
     }).catch( 
         // error => console.log(error) 
     );
 
-    const changeView = (data, electionsDate) => {
+    const createMapVehicle = (data, electionsDate) => {
         const geographicData = data[0],
               electionsData2019RO = data[1],
               electionsData2019SR = data[2];
 
         const electionsData2019 = [...electionsData2019RO, ...electionsData2019SR];
 
-        const mapVehicle = mapDataFactory(geographicData, electionsData2019, electionsDate);
+        return mapDataFactory(geographicData, electionsData2019, electionsDate);
+
+    };
+
+    const changeView = (mapVehicle) => {
 
         mapVehicle(DrawLegend.drawVotesPercentageLegend, 'counties_wgs84', svg1);
         mapVehicle(DrawLegend.drawVotesByPopulationLegend, 'counties_wgs84', svg2);

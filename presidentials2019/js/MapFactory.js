@@ -40,8 +40,7 @@ const mapDataFactory = (data, electionsData, electionsDate) => {
     const votesStats = {
         formattedData: formattedData,
         votesByCounties: votesByCounties,
-        votesByCandidates: votesByCandidates,
-        // electoralDataByDistrict: electoralDataByDistrict
+        votesByCandidates: votesByCandidates
     };
 
     return (callback, layer, svg) => {
