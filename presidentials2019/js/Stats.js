@@ -61,11 +61,11 @@ export const groupVotesByCandidates = (resultByCounty) => {
     return resultByCandidates;
 };
 
-export const setVotesByCodeGroup = (data, electionsDate) => {
-    let votesByCode = d3.map();
+export const groupElectoralDataByDistrict = (data, electionsDate) => {
+    let electoralDataByDistrict = d3.map();
     data.forEach( d => {
         let fieldMap = Config.fieldMap(d);
-        votesByCode.set(fieldMap.code[electionsDate], {
+        electoralDataByDistrict.set(fieldMap.code[electionsDate], {
             code: fieldMap.code[electionsDate],
             totValidVotes: fieldMap.totValidVotes[electionsDate],
             vote1: fieldMap.vote1[electionsDate],
@@ -80,5 +80,5 @@ export const setVotesByCodeGroup = (data, electionsDate) => {
         });
     });
 
-    return votesByCode;
+    return electoralDataByDistrict;
 }
