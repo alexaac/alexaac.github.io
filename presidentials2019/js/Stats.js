@@ -28,10 +28,17 @@ export const groupvotesByCounties = (data) => {
     return resultByCounty;
 }
 
-export const groupVotesByCandidates = (resultByCounty) => {
+export const groupVotesByCandidates = (resultByCounty, electionsDate) => {
 
     const resultByCandidates = [];
-    const columns = ['g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8', 'g9', 'g10', 'g11', 'g12', 'g13', 'g14'];
+    let columns = [];
+
+    if (electionsDate === "2019-11-10") {
+        columns = ['g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8', 'g9', 'g10', 'g11', 'g12', 'g13', 'g14'];
+    } else {
+        columns = ['g1', 'g2'];
+    };
+
     columns.forEach( col => {
         const result = resultByCounty.reduce( (res, data_row) => {
             if (!res[data_row[col]]) {
@@ -46,7 +53,8 @@ export const groupVotesByCandidates = (resultByCounty) => {
         const total = votes.reduce((a, b) => a + b, 0);
         result.total = total || 0;
 
-        resultByCandidates[Config.CANDIDATES_2019[col]] = result;
+        const candidateName = (electionsDate === "2019-11-10") ? Config.CANDIDATES_2019[col] : Config.CANDIDATES_2019_2[col];
+        resultByCandidates[candidateName] = result;
     });
 
     let keys = Object.keys(resultByCandidates);

@@ -42,6 +42,7 @@ export const drawScaleBar = (votesStats, layer, svg) => {
 export const drawVotesPercentageLegend = (votesStats, layer, svg) => {
 
     const data = votesStats.formattedData;
+    const electionsDate = votesStats.electionsDate;
 
     let layerData = topojson.feature(data, data.objects[layer]).features;
 
@@ -71,7 +72,7 @@ export const drawVotesPercentageLegend = (votesStats, layer, svg) => {
         .attr("height", 20)
         .attr("x", d => x(d[0]) )
         .attr("width", d => x(d[1]) - x(d[0]) )
-        .style("fill", d => Config.colorScaleRed(d[0]) );
+        .style("fill", d => electionsDate === "2019-11-10" ? Config.colorScaleRed(d[0]) : Config.colorScaleRed2(d[0]) );
     g1.selectAll("rect")
         .data(Utils.pair(x1.ticks(10)))
         .enter().append("rect")
@@ -379,7 +380,7 @@ export const drawAreaLegend = (args) => {
         legendHeight = maxAreaSize * 2 + 10,
         legend = args.svg.append("g")
                     .attrs({
-                        transform: d => `translate(${10},${Config.height - 120})`
+                        transform: d => `translate(${10},${Config.height - 60})`
                     })
                     .attr("width", legendWidth)
                     .attr("height", legendHeight),

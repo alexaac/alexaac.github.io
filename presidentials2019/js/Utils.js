@@ -10,8 +10,12 @@ export const pair = (array) => {
 
 export const colorLayers = (d) => {
     return ( d.properties.joined.rate1 > d.properties.joined.rate2 ) 
-                ? Config.colorScaleRed(d.properties.joined.rate1) 
-                : Config.colorScaleBlue(d.properties.joined.rate2);
+                ? ( d.properties.joined.electionsDate === "2019-11-10")
+                    ? Config.colorScaleRed(d.properties.joined.rate1)
+                    : Config.colorScaleRed2(d.properties.joined.rate1)
+                : ( d.properties.joined.electionsDate === "2019-11-10")
+                    ? Config.colorScaleBlue(d.properties.joined.rate2)
+                    : Config.colorScaleBlue2(d.properties.joined.rate2);
 };
 
 export const tooltip_div = d3.select("body")
@@ -58,14 +62,14 @@ export const repaint = () => {
     d3.select("#candidates-donut").selectAll("*").remove();
     d3.select("#counties-treemap").selectAll("*").remove();
 
-    const svg1 = d3.select("#legend-percent").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-40 60 " + Config.viewport_width + " " + 150);
-    const svg2 = d3.select("#legend-population").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-40 60 " + Config.viewport_width + " " + Config.viewport_height);
-    const svg3 = d3.select("#geography").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-40 60 " + Config.viewport_width + " " + Config.viewport_height);
-    const svg4 = d3.select("#gastner-c-cartogram").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-40 60 " + Config.viewport_width + " " + Config.viewport_height);
-    const svg5 = d3.select("#gastner-g-cartogram").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-40 60 " + Config.viewport_width + " " + Config.viewport_height);
-    const svg6 = d3.select("#dorling-cartogram").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-40 60 " + Config.viewport_width + " " + Config.viewport_height);
-    const svg7 = d3.select("#demers-cartogram").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-40 60 " + Config.viewport_width + " " + Config.viewport_height);
-    const svg8 = d3.select("#noncont-cartogram").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-40 60 " + Config.viewport_width + " " + Config.viewport_height);
+    const svg1 = d3.select("#legend-percent").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-60 60 " + Config.viewport_width + " " + 150);
+    const svg2 = d3.select("#legend-population").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-60 60 " + Config.viewport_width + " " + Config.viewport_height);
+    const svg3 = d3.select("#geography").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-60 60 " + Config.viewport_width + " " + Config.viewport_height);
+    const svg4 = d3.select("#gastner-c-cartogram").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-60 60 " + Config.viewport_width + " " + Config.viewport_height);
+    const svg5 = d3.select("#gastner-g-cartogram").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-60 60 " + Config.viewport_width + " " + Config.viewport_height);
+    const svg6 = d3.select("#dorling-cartogram").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-60 60 " + Config.viewport_width + " " + Config.viewport_height);
+    const svg7 = d3.select("#demers-cartogram").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-60 60 " + Config.viewport_width + " " + Config.viewport_height);
+    const svg8 = d3.select("#noncont-cartogram").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-60 60 " + Config.viewport_width + " " + Config.viewport_height);
     const svg9 = d3.select("#candidates-donut").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "0 0 " + Config.width + " " + Config.height);
     const svg10 = d3.select("#counties-treemap").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "0 0 " + Config.width + " " + Config.height);
 

@@ -26,7 +26,12 @@ export const CANDIDATES_2019 = {
     'g11': 'BOGDAN-DRAGOS-AURELIU MARIAN-STANOEVICI',
     'g12': 'RAMONA-IOANA BRUYNSEELS',
     'g13': 'VIOREL CATARAMĂ',
-    'g14': 'ALEXANDRU CUMPĂNAŞU' 
+    'g14': 'ALEXANDRU CUMPĂNAŞU'
+};
+
+export const CANDIDATES_2019_2 = {
+    'g1': 'KLAUS-WERNER IOHANNIS',
+    'g2': 'VASILICA-VIORICA DĂNCILĂ',
 };
 
 export const CANDIDATES_2014 = {};
@@ -41,8 +46,8 @@ export const LAYERLIST = [
 export const width = 620,
     height = 660;
 
-export const viewport_width = 680,
-    viewport_height = 660;
+export const viewport_width = 740,
+    viewport_height = 680;
 
 export const colorScaleRed = d3.scaleThreshold()
     .domain( [0, 10, 20, 30, 40, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100 ] )
@@ -50,6 +55,14 @@ export const colorScaleRed = d3.scaleThreshold()
 
 export const colorScaleBlue = d3.scaleThreshold()
     .domain( [0, 10, 20, 30, 40, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100 ] )
+    .range(d3.schemeBlues[9]);
+
+export const colorScaleRed2 = d3.scaleThreshold()
+    .domain( [ 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100 ] )
+    .range(d3.schemeReds[9]);
+
+export const colorScaleBlue2 = d3.scaleThreshold()
+    .domain( [ 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100 ] )
     .range(d3.schemeBlues[9]);
 
 export const projection = d3.geoAlbers()
@@ -77,12 +90,12 @@ export const fieldMap = (d) => {
         vote1: {
             '2014': d['VICTOR-VIOREL PONTA'],
             '2019-11-10': d['g5'],
-            '2019-11-24': d['g5'],
+            '2019-11-24': d['g2'],
         },
         candidate1: {
             '2014': CANDIDATES_2014['g5'],
             '2019-11-10': CANDIDATES_2019['g5'],
-            '2019-11-24': CANDIDATES_2019['g5'],
+            '2019-11-24': CANDIDATES_2019_2['g2'],
         },
         vote2: {
             '2014': d['KLAUS-WERNER IOHANNIS'],
@@ -92,7 +105,7 @@ export const fieldMap = (d) => {
         candidate2: {
             '2014': CANDIDATES_2014['g1'],
             '2019-11-10': CANDIDATES_2019['g1'],
-            '2019-11-24': CANDIDATES_2019['g1'],
+            '2019-11-24': CANDIDATES_2019_2['g1'],
         },
         electoralDistrict: {
             '2014': d['Nume Judet'],
@@ -102,12 +115,12 @@ export const fieldMap = (d) => {
         rate1: {
             '2014': d['VICTOR-VIOREL PONTA'] / d['Numărul total al voturilor valabil exprimate'] * 100,
             '2019-11-10': d.g5 / d.c * 100,
-            '2019-11-24': d.g5 / d.c * 100,
+            '2019-11-24': d.g2 / d.c * 100,
         },
         rate1Color: {
             '2014': Utils.roundToNearestMultipleOf(5)(d['VICTOR-VIOREL PONTA'] / d['Numărul total al voturilor valabil exprimate'] * 100),
             '2019-11-10': Utils.roundToNearestMultipleOf(5)(d.g5 / d.c * 100),
-            '2019-11-24': Utils.roundToNearestMultipleOf(5)(d.g5 / d.c * 100),
+            '2019-11-24': Utils.roundToNearestMultipleOf(5)(d.g2 / d.c * 100),
         },
         rate2: {
             '2014': d['KLAUS-WERNER IOHANNIS'] / d['Numărul total al voturilor valabil exprimate'] * 100,

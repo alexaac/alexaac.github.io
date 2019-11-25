@@ -14,7 +14,7 @@ import * as DrawMaps from './DrawMaps.js'
         .on("click", function(){
             var button = d3.select(this);
             if (button.text() == "See Elections Results From Round 1"){
-                button.text("See Elections Results From Round 2");
+                button.text("See Partial Elections Results From Round 2");
                 changeView(electionsData2019Round1, '2019-11-10');
             }
             else {
@@ -27,8 +27,8 @@ import * as DrawMaps from './DrawMaps.js'
         d3.json("./data/counties_bundle.json"),
         d3.csv("./data/pv_RO_PRSD_FINAL.csv"),
         d3.csv("./data/pv_SR_PRSD_FINAL.csv"),
-        d3.csv("./data/pv2_RO_PRSD_FINAL.csv"),
-        d3.csv("./data/pv2_SR_PRSD_FINAL.csv"),
+        d3.csv("./data/pv_RO_PRSD_PART.csv"),
+        d3.csv("./data/pv_SR_PRSD_PART.csv"),
     ]
 
     Promise.all(promises).then( data => {
