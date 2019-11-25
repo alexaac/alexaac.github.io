@@ -40,7 +40,7 @@ const formatCountyData = (data, votesByCounties, electionsDate) => {
 
                     return d;
                 } catch (error) {
-                    // console.log(error);
+                    console.log(error);
                 };
             }
         });
