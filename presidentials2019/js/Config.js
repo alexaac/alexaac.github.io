@@ -59,11 +59,11 @@ export const colorScaleBlue = d3.scaleThreshold()
 
 export const colorScaleRed2 = d3.scaleThreshold()
     .domain( [ 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100 ] )
-    .range(d3.schemeReds[9]);
+    .range(d3.schemeReds[5]);
 
 export const colorScaleBlue2 = d3.scaleThreshold()
     .domain( [ 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100 ] )
-    .range(d3.schemeBlues[9]);
+    .range(d3.schemeBlues[7]);
 
 export const projection = d3.geoAlbers()
     .center([24.7731, 45.7909])
