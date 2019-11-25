@@ -36,16 +36,21 @@ import * as DrawMaps from './DrawMaps.js'
         .on("click", function(){
             spinner = new Spinner(opts).spin(target);
             var button = d3.select(this);
-            if (button.text() == "See Elections Results From Round 1"){
-                button.text("See Partial Elections Results From Round 2");
+            if (button.text() === "See Elections Results From Round 1"){
+                button.text("");
                 d3.select("#title-details").html("- <strong>Final Results Round 1</strong>");
                 changeView(electionsData2019Round1, '2019-11-10');
+                button.text("See Partial Elections Results From Round 2");
             }
             else {
-                button.text("See Elections Results From Round 1");
+                button.text("");
                 d3.select("#title-details").html("- <strong>Partial Results Round 2</strong>");
                 changeView(electionsData2019Round2, '2019-11-24');
-            }
+                button.text("See Elections Results From Round 1");
+            };
+            setTimeout(function() {
+                spinner.stop();
+            }, 2000);
         })
 
     const promises = [
@@ -92,12 +97,6 @@ import * as DrawMaps from './DrawMaps.js'
         mapVehicle(DrawLegend.drawScaleBar, 'counties_wgs84', svg3);
         mapVehicle(DrawLegend.drawCandidatesDonut, 'counties_wgs84', svg9);
         mapVehicle(DrawLegend.drawCountiesTreemap, 'counties_wgs84', svg10);
-
-        if (typeof(spinner) !== "undefined") {
-            setTimeout(function() {
-                spinner.stop();
-            }, 1500);
-        };
 
     };
 
