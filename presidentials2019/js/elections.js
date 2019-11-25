@@ -34,17 +34,16 @@ import * as DrawMaps from './DrawMaps.js'
 
     d3.select("#rounds-btn")
         .on("click", function(){
+            spinner = new Spinner(opts).spin(target);
             var button = d3.select(this);
             if (button.text() == "See Elections Results From Round 1"){
                 button.text("See Partial Elections Results From Round 2");
                 d3.select("#title-details").html("- <strong>Final Results Round 1</strong>");
-                spinner = new Spinner(opts).spin(target);
                 changeView(electionsData2019Round1, '2019-11-10');
             }
             else {
                 button.text("See Elections Results From Round 1");
                 d3.select("#title-details").html("- <strong>Partial Results Round 2</strong>");
-                spinner = new Spinner(opts).spin(target);
                 changeView(electionsData2019Round2, '2019-11-24');
             }
         })
