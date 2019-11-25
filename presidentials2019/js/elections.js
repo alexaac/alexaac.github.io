@@ -29,8 +29,6 @@ import * as DrawMaps from './DrawMaps.js'
         d3.csv("./data/pv_SR_PRSD_FINAL.csv"),
         d3.csv("./data/pv_RO_PRSD_PART.csv"),
         d3.csv("./data/pv_SR_PRSD_PART.csv"),
-        d3.json("https://prezenta.bec.ro/prezidentiale24112019/data/pv/json//pv_AB.json"),
-        d3.json("https://prezenta.bec.ro/prezidentiale24112019/data/pv/json//pv_SR.json"),
     ]
 
     Promise.all(promises).then( data => {
@@ -38,19 +36,14 @@ import * as DrawMaps from './DrawMaps.js'
         const electionsData2019RORound1 = data[1],
               electionsData2019SRRound1 = data[2],
               electionsData2019RORound2 = data[3],
-              electionsData2019SRRound2 = data[4],
-              electionsData2019RORound2_test = data[5],
-              electionsData2019SRRound2_test = data[6];
-
-        console.log(electionsData2019RORound2_test);
-        console.log(electionsData2019SRRound2_test);
+              electionsData2019SRRound2 = data[4];
 
         electionsData2019Round1 = [...electionsData2019RORound1, ...electionsData2019SRRound1];
         electionsData2019Round2 = [...electionsData2019RORound2, ...electionsData2019SRRound2];
 
         changeView(electionsData2019Round1, electionsDate);
     }).catch( 
-        error => console.log(error) 
+        // error => console.log(error)
     );
 
     const changeView = (electionsData, electionsDate) => {
