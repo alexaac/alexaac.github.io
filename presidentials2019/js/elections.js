@@ -95,7 +95,9 @@ import * as DrawMaps from './DrawMaps.js'
         mapVehicle(DrawLegend.drawCountiesTreemap, 'counties_wgs84', svg10);
 
         if (typeof(spinner) !== "undefined") {
-            spinner.stop();
+            setTimeout(function() {
+                spinner.stop();
+            }, 1500);
         };
 
     };
