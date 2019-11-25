@@ -38,13 +38,13 @@ import * as DrawMaps from './DrawMaps.js'
             var button = d3.select(this);
             if (button.text() === "See Elections Results From Round 1"){
                 button.text("");
-                d3.select("#title-details").html("- <strong>Final Results Round 1</strong>");
+                d3.select("#title-details").html("<strong>Final Results Round 1</strong>");
                 changeView(electionsData2019Round1, '2019-11-10');
                 button.text("See Partial Elections Results From Round 2");
             }
             else {
                 button.text("");
-                d3.select("#title-details").html("- <strong>Partial Results Round 2</strong>");
+                d3.select("#title-details").html("<strong>Partial Results Round 2</strong>");
                 changeView(electionsData2019Round2, '2019-11-24');
                 button.text("See Elections Results From Round 1");
             };
