@@ -7,7 +7,7 @@ html {
 }
 
 body {
-    font-family: "Niconne", cursive;
+    font-family: "Open Sans", cursive;
     margin: 0px;
     padding: 0px;
     background: url(../img/vintage.png);
@@ -148,60 +148,32 @@ g.features path:hover, g.bar rect:hover, .bubble:hover, .districts:hover {
     background-color: #7dbbf1;
 }
 
-/* https://codepen.io/deineko/pen/jrmmoQ */
-
 .panel button {
-    color:#454545;
-    background: transparent;
-    border-width: 2px;
-    border-style: solid;
-    border-color: #454545;
-    position: relative;
-    margin: 1em;
-    display: inline-block;
-    padding: 0.5em 1em;
-    transition: all 0.3s ease-in-out;
-    text-align: center;
-    font-family: "Niconne", cursive;
+    border-radius: 50px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+    -moz-border-radius: 50px;
+    -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+    -webkit-border-radius: 50px;
+    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+    color: #fff;
+    cursor: pointer;
+    float: left;
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 20px;
+    padding: 5px 20px;
+    text-decoration: none;
+    background:-moz-linear-gradient(center top , #f40000, #cc0000);
+    background: -webkit-gradient(linear, center top, center bottom, from(#f40000), to(#cc0000));
+    font-family: "Open Sans", cursive;
     font-weight: bold;
     font-size: 1.1em;
 }
 
-.panel button:before, .panel button:after {
-    content: '';
-    display: block;
-    position: absolute;
-    border-color :#454545;
-    box-sizing: border-box;
-    border-style: solid;
-    width: 1em;
-    height: 1em;
-    transition: all 0.3s ease-in-out
-}
-
-.panel button:before {
-    top: -6px;
-    left: -6px;
-    border-width: 2px 0 0 2px;
-    z-index: 5;
-}
-
-.panel button:after {
-    bottom: -6px;
-    right: -6px;
-    border-width: 0 2px 2px 0;
-}
-
-.panel button:hover:before, .panel button:hover:after {
-    width: calc(100% + 12px);
-    height: calc(100% + 12px);
-    border-color: #fff
-}
-
 .panel button:hover {
-    color: #353535;
-    background-color :#fff;
-    border-color: #fff
+    color: #fff;
+    text-decoration: none;
+    background: -webkit-gradient(linear, center top, center bottom, from(#7c0101), to(#420101));
 }
 
 .panel {

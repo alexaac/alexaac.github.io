@@ -9,16 +9,42 @@ import * as DrawMaps from './DrawMaps.js'
 
     let geographicData, electionsData2019Round1, electionsData2019Round2;
     let electionsDate = "2019-11-10";
+    let opts = {
+        lines: 9,
+        length: 4,
+        width: 5,
+        radius: 12,
+        scale: 1,
+        corners: 1,
+        color: '#f40000',
+        opacity: 0.25,
+        rotate: 0,
+        direction: 1,
+        speed: 1,
+        trail: 30,
+        fps: 20,
+        zIndex: 2e9,
+        className: 'spinner',
+        shadow: false,
+        hwaccel: false,
+        position: 'absolute',
+       },
+        target = document.getElementById('spinner'),
+        spinner;
 
     d3.select("#rounds-btn")
         .on("click", function(){
             var button = d3.select(this);
             if (button.text() == "See Elections Results From Round 1"){
                 button.text("See Partial Elections Results From Round 2");
+                d3.select("#title-details").html("- <strong>Final Results Round 1</strong>");
+                spinner = new Spinner(opts).spin(target);
                 changeView(electionsData2019Round1, '2019-11-10');
             }
             else {
                 button.text("See Elections Results From Round 1");
+                d3.select("#title-details").html("- <strong>Partial Results Round 2</strong>");
+                spinner = new Spinner(opts).spin(target);
                 changeView(electionsData2019Round2, '2019-11-24');
             }
         })
@@ -67,6 +93,10 @@ import * as DrawMaps from './DrawMaps.js'
         mapVehicle(DrawLegend.drawScaleBar, 'counties_wgs84', svg3);
         mapVehicle(DrawLegend.drawCandidatesDonut, 'counties_wgs84', svg9);
         mapVehicle(DrawLegend.drawCountiesTreemap, 'counties_wgs84', svg10);
+
+        if (typeof(spinner) !== "undefined") {
+            spinner.stop();
+        };
 
     };
 
