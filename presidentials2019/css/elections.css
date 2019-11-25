@@ -175,6 +175,10 @@ g.features path:hover, g.bar rect:hover, .bubble:hover, .districts:hover {
     text-decoration: none;
     background: -webkit-gradient(linear, center top, center bottom, from(#7c0101), to(#420101));
 }
+.panel button:active {
+    outline: none;
+    border: none;
+}
 
 .panel {
     max-width: 960px;
