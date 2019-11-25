@@ -181,10 +181,15 @@ g.features path:hover, g.bar rect:hover, .bubble:hover, .districts:hover {
 }
 
 .panel {
-    max-width: 960px;
+    max-width: 600px;
     text-align: center;
     position: relative;
     margin: auto;
+}
+
+#title-details {
+    font-size: 2em;
+    border-bottom: 2px dotted #c80060;
 }
 
 a {

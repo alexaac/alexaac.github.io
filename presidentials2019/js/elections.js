@@ -36,17 +36,15 @@ import * as DrawMaps from './DrawMaps.js'
         .on("click", function(){
             spinner = new Spinner(opts).spin(target);
             var button = d3.select(this);
-            if (button.text() === "See Elections Results From Round 1"){
-                button.text("");
-                d3.select("#title-details").html("<strong>Final Results Round 1</strong>");
+            if (button.text() === "See Round 1"){
+                d3.select("#title-details").html("Final Results Round 1");
                 changeView(electionsData2019Round1, '2019-11-10');
-                button.text("See Partial Elections Results From Round 2");
+                button.text("See Round 2");
             }
             else {
-                button.text("");
-                d3.select("#title-details").html("<strong>Partial Results Round 2</strong>");
+                d3.select("#title-details").html("Partial Results Round 2");
                 changeView(electionsData2019Round2, '2019-11-24');
-                button.text("See Elections Results From Round 1");
+                button.text("See Round 1");
             };
             setTimeout(function() {
                 spinner.stop();
