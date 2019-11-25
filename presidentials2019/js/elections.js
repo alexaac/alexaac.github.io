@@ -71,7 +71,7 @@ import * as DrawMaps from './DrawMaps.js'
 
         changeView(electionsData2019Round1, electionsDate);
     }).catch( 
-        // error => console.log(error)
+        error => console.log(error)
     );
 
     const changeView = (electionsData, electionsDate) => {
