@@ -330,7 +330,10 @@ export const drawNonCont = (votesStats, layer, svg) => {
         .projection(Config.projection.fitSize([Config.width, Config.height], geojsonFeatures));
 
     const nodes = topojson.feature(geoData, geoData.objects[layer]).features;
-    
+    nodes.forEach( d => {
+        d.properties.joined.totValidVotes_rate = Math.ceil( d.properties.joined.totValidVotes / Math.sqrt(d.properties.joined.totValidVotes / 300000) );
+    });
+
     svg.append("g")
         .attr("class", "black")
         .selectAll("path")
@@ -354,11 +357,12 @@ export const drawNonCont = (votesStats, layer, svg) => {
             .append("path")
             .attr("fill", d => Utils.colorLayers(d))
             .attr("transform", d => {
+                console.log(d.properties.joined.totValidVotes_rate);
                 const centroid = thisMapPath.centroid(d),
                     x = centroid[0],
                     y = centroid[1];
                 return `translate(${x},${y})`
-                    + `scale(${Math.sqrt(d.properties.joined.totValidVotes / 300000) || 0})`
+                    + `scale(${d.properties.joined.totValidVotes_rate || 0})`
                     + `translate(${-x},${-y})`;
             })
             .attr("d", thisMapPath)
@@ -373,10 +377,6 @@ export const drawNonCont = (votesStats, layer, svg) => {
             .attr("transform", d => `translate(${thisMapPath.centroid(d)})`)
             .attr("dy", ".35em")
             .text( d => d.properties.joined.districtAbbr);
-
-        nodes.forEach( d => {
-            d.properties.joined.totValidVotes_rate = Math.ceil( d.properties.joined.totValidVotes / Math.sqrt(d.properties.joined.totValidVotes / 300000) );
-        });
 
         drawAreaLegend( {
             "typeOfArea": 'square',

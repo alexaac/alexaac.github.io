@@ -63,7 +63,7 @@ export const repaint = () => {
     d3.select("#counties-treemap").selectAll("*").remove();
 
     const svg1 = d3.select("#legend-percent").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-60 60 " + Config.viewport_width + " " + 150);
-    const svg2 = d3.select("#legend-population").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-60 60 " + Config.viewport_width + " " + Config.viewport_height);
+    const svg2 = d3.select("#legend-population").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-20 20 " + Config.width + " " + Config.height);
     const svg3 = d3.select("#geography").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-60 60 " + Config.viewport_width + " " + Config.viewport_height);
     const svg4 = d3.select("#gastner-c-cartogram").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-60 60 " + Config.viewport_width + " " + Config.viewport_height);
     const svg5 = d3.select("#gastner-g-cartogram").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-60 60 " + Config.viewport_width + " " + Config.viewport_height);
