@@ -13,25 +13,25 @@ export const COL_LEGEND = {
 };
 
 export const CANDIDATES_2019 = {
-    'g1': 'KLAUS-WERNER IOHANNIS',
-    'g2': 'THEODOR PALEOLOGU',
-    'g3': 'ILIE-DAN BARNA',
-    'g4': 'HUNOR KELEMEN',
-    'g5': 'VASILICA-VIORICA DĂNCILĂ',
-    'g6': 'CĂTĂLIN-SORIN IVAN',
-    'g7': 'NINEL PEIA',
-    'g8': 'SEBASTIAN-CONSTANTIN POPESCU',
-    'g9': 'JOHN-ION BANU',
-    'g10': 'MIRCEA DIACONU',
-    'g11': 'BOGDAN-DRAGOS-AURELIU MARIAN-STANOEVICI',
-    'g12': 'RAMONA-IOANA BRUYNSEELS',
-    'g13': 'VIOREL CATARAMĂ',
-    'g14': 'ALEXANDRU CUMPĂNAŞU'
+    'g1': { name: 'KLAUS-WERNER IOHANNIS', color: '#2171b5' },
+    'g2': { name: 'THEODOR PALEOLOGU', color: '#7fc6bc' },
+    'g3': { name: 'ILIE-DAN BARNA', color: '#22ace4' },
+    'g4': { name: 'HUNOR KELEMEN', color: '#aac52e' },
+    'g5': { name: 'VASILICA-VIORICA DĂNCILĂ', color: '#fa8376' },
+    'g6': { name: 'CĂTĂLIN-SORIN IVAN', color: '#4182e4' },
+    'g7': { name: 'NINEL PEIA', color: '#2a5c70' },
+    'g8': { name: 'SEBASTIAN-CONSTANTIN POPESCU', color: '#18533d' },
+    'g9': { name: 'JOHN-ION BANU', color: '#345f4f' },
+    'g10': { name: 'MIRCEA DIACONU', color: '#9379da' },
+    'g11': { name: 'BOGDAN-DRAGOS-AURELIU MARIAN-STANOEVICI', color: '#bde67c' },
+    'g12': { name: 'RAMONA-IOANA BRUYNSEELS', color: '#bf7ce6' },
+    'g13': { name: 'VIOREL CATARAMĂ', color: '#7a344b' },
+    'g14': { name: 'ALEXANDRU CUMPĂNAŞU', color: '#888622' },
 };
 
 export const CANDIDATES_2019_2 = {
-    'g1': 'KLAUS-WERNER IOHANNIS',
-    'g2': 'VASILICA-VIORICA DĂNCILĂ',
+    'g1': { name: 'KLAUS-WERNER IOHANNIS', color: '#2171b5' },
+    'g2': { name: 'VASILICA-VIORICA DĂNCILĂ', color: '#fa8376' },
 };
 
 export const CANDIDATES_2014 = {};
@@ -94,8 +94,8 @@ export const fieldMap = (d) => {
         },
         candidate1: {
             '2014': CANDIDATES_2014['g5'],
-            '2019-11-10': CANDIDATES_2019['g5'],
-            '2019-11-24': CANDIDATES_2019_2['g2'],
+            '2019-11-10': CANDIDATES_2019['g5'].name,
+            '2019-11-24': CANDIDATES_2019_2['g2'].name,
         },
         vote2: {
             '2014': d['KLAUS-WERNER IOHANNIS'],
@@ -104,8 +104,8 @@ export const fieldMap = (d) => {
         },
         candidate2: {
             '2014': CANDIDATES_2014['g1'],
-            '2019-11-10': CANDIDATES_2019['g1'],
-            '2019-11-24': CANDIDATES_2019_2['g1'],
+            '2019-11-10': CANDIDATES_2019['g1'].name,
+            '2019-11-24': CANDIDATES_2019_2['g1'].name,
         },
         electoralDistrict: {
             '2014': d['Nume Judet'],

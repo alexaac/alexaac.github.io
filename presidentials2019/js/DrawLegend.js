@@ -185,17 +185,22 @@ export const drawCountiesTreemap = (votesStats, layer, svg) => {
 
     const votesByCounties = votesStats.votesByCounties;
 
-    const keys = Object.keys(votesByCounties);
-    let data = keys.map( v => {
-        return { name: votesByCounties[v]['Județ'], value: votesByCounties[v].c };
+    const nodes = topojson.feature(votesStats.formattedData, votesStats.formattedData.objects.counties_wgs84).features;
+
+    let populationData = [];
+    nodes.forEach( d => {
+        return populationData.push({
+            name: d.properties.joined.electoralDistrict,
+            value: d.properties.joined.totValidVotes,
+            properties: d.properties,
+        });
     });
 
-    data = { 
+    const data = {
         "name": "Districts",
-        "children": data
+        "children": populationData,
     };
 
-    const color = d3.scaleOrdinal(d3.schemeCategory10);
     const format = d3.format(",d");
 
     const treemap = data => d3.treemap()
@@ -218,7 +223,7 @@ export const drawCountiesTreemap = (votesStats, layer, svg) => {
     leaf.append("rect")
         .attr("id", d => d.data.id)
         .attr("class", "districts")
-        .attr("fill", d => { while (d.depth > 1) d = d.parent; return color(d.data.name); })
+        .attr("fill", d => { while (d.depth > 1) d = d.parent; return Utils.colorLayers(d.data); })
         .attr("fill-opacity", 0.6)
         .attr("width", d => d.x1 - d.x0)
         .attr("height", d => d.y1 - d.y0)
@@ -260,11 +265,9 @@ export const drawCandidatesDonut = (votesStats, layer, svg) => {
     const votesByCandidates = votesStats.votesByCandidates;
     const radius = Math.min(Config.width, Config.height) / 2 - 40;
 
-    const color = d3.scaleOrdinal()
-        .range(d3.schemeDark2);
-
     const keys = Object.keys(votesByCandidates);
     let data = keys.map( v => { return {
+                id: votesByCandidates[v].id,
                 name: v,
                 value: votesByCandidates[v].total,
                 percent: votesByCandidates[v].rateCountry,
@@ -310,7 +313,12 @@ export const drawCandidatesDonut = (votesStats, layer, svg) => {
                 })
             .append('path')
             .attr('d', arc)
-            .attr('fill', (d,i) => color(i))
+            .attr("fill", (d, i) => {
+                console.log( d);
+                return ( votesStats.electionsDate === "2019-11-10" )
+                    ? Config.CANDIDATES_2019[d.data.id].color
+                    : Config.CANDIDATES_2019_2[d.data.id].color;
+            })
             .on("mouseover", function(d) {
                 d3.select(this)     
                     .attr("style", "stroke: #00ffff; stroke-width: 2px; fill-opacity: 0.8; cursor: pointer;");
@@ -360,7 +368,7 @@ export const drawCandidatesDonut = (votesStats, layer, svg) => {
                     .attr("startOffset","50%")
                     .style("text-anchor","start")
                     .attr("xlink:href", (d,i) => `#donutArc${i}`)
-                    .text( d => d.data.name );
+                    .text( d => `${d.data.name} ( ${d3.format(",.2f")(+d.data.percent)} % )`  );
         
 };
 

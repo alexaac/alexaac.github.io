@@ -52,8 +52,9 @@ export const groupVotesByCandidates = (resultByCounty, electionsDate) => {
         const votes = keys.map( v =>  result[v] );
         const total = votes.reduce((a, b) => a + b, 0);
         result.total = total || 0;
+        result.id = col;
 
-        const candidateName = (electionsDate === "2019-11-10") ? Config.CANDIDATES_2019[col] : Config.CANDIDATES_2019_2[col];
+        const candidateName = (electionsDate === "2019-11-10") ? Config.CANDIDATES_2019[col].name : Config.CANDIDATES_2019_2[col].name;
         resultByCandidates[candidateName] = result;
     });
 
