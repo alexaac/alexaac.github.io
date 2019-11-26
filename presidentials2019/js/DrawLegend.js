@@ -314,7 +314,6 @@ export const drawCandidatesDonut = (votesStats, layer, svg) => {
             .append('path')
             .attr('d', arc)
             .attr("fill", (d, i) => {
-                console.log( d);
                 return ( votesStats.electionsDate === "2019-11-10" )
                     ? Config.CANDIDATES_2019[d.data.id].color
                     : Config.CANDIDATES_2019_2[d.data.id].color;
