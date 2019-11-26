@@ -35,7 +35,7 @@ const formatCountyData = (data, votesByCounties, electionsDate) => {
                     d.properties.joined = electoralDataByDistrict.get(d.properties.cod_birou);
                     d.properties.joined.code = d.properties.cod_birou;
                     d.properties.joined.districtAbbr = d.properties.abbr;
-                    d.properties.joined.vvot_sqkm = d.properties.vvot_sqkm;
+                    d.properties.joined.vvot_sqkm = Math.ceil(d.properties.joined.totValidVotes / d.properties.area_sqkm);
                     d.properties.joined.electionsDate = electionsDate;
 
                     return d;
