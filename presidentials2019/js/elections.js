@@ -37,12 +37,10 @@ import * as DrawMaps from './DrawMaps.js'
             spinner = new Spinner(opts).spin(target);
             var button = d3.select(this);
             if (button.text() === "See Round 1"){
-                d3.select("#title-details").html("Final Results");
                 changeView(electionsData2019Round1, '2019-11-10');
                 button.text("See Round 2");
             }
             else {
-                d3.select("#title-details").html("Partial Results");
                 changeView(electionsData2019Round2, '2019-11-24');
                 button.text("See Round 1");
             };
@@ -55,8 +53,8 @@ import * as DrawMaps from './DrawMaps.js'
         d3.json("./data/counties_bundle.json"),
         d3.csv("./data/round1/pv_RO_PRSD_FINAL.csv"),
         d3.csv("./data/round1/pv_SR_PRSD_FINAL.csv"),
-        d3.csv("./data/round2/pv_RO_PRSD_PART.csv"),
-        d3.csv("./data/round2/pv_SR_PRSD_PART.csv"),
+        d3.csv("./data/round2/pv_RO_PRSD_FINAL.csv"),
+        d3.csv("./data/round2/pv_SR_PRSD_FINAL.csv"),
     ]
 
     Promise.all(promises).then( data => {
