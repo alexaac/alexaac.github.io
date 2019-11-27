@@ -332,7 +332,7 @@ export const drawNonCont = (votesStats, layer, svg) => {
     const nodes = topojson.feature(geoData, geoData.objects[layer]).features;
     nodes.forEach( d => {
         d.properties.joined.totalValidVotesScale = Math.sqrt(d.properties.joined.totValidVotes / 300000);
-        d.properties.joined.totValidVotes_rate = Math.ceil( d.properties.joined.totValidVotes / d.properties.joined.totalValidVotesScale );
+        d.properties.joined.totValidVotes_rate = Math.ceil( d.properties.joined.totValidVotes / d.properties.joined.totalValidVotesScale ) || 0;
     });
 
     svg.append("g")

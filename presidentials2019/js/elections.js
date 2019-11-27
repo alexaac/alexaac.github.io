@@ -1,4 +1,3 @@
-import * as Config from './Config.js'
 import * as Utils from './Utils.js'
 import mapDataFactory from './MapFactory.js'
 import * as DrawLegend from './DrawLegend.js'
@@ -46,7 +45,7 @@ import * as DrawMaps from './DrawMaps.js'
             };
             setTimeout(function() {
                 spinner.stop();
-            }, 2000);
+            }, 1500);
         })
 
     const promises = [

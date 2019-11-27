@@ -43,6 +43,7 @@ export const drawVotesPercentageLegend = (votesStats, layer, svg) => {
 
     const data = votesStats.formattedData;
     const electionsDate = votesStats.electionsDate;
+    const votesByCandidates = votesStats.votesByCandidates;
 
     let layerData = topojson.feature(data, data.objects[layer]).features;
 
@@ -92,6 +93,13 @@ export const drawVotesPercentageLegend = (votesStats, layer, svg) => {
         .attr("class", "x axis")
         .call(xAxisCall1);
 
+    const candidate1Text =  ( typeof(maxRate1.properties.joined.code) !== "undefined" )
+        ? `${maxRate1.properties.joined.candidate1} (${d3.format(",.2f")(votesByCandidates[maxRate1.properties.joined.candidate1].rateCountry)} %)`
+        : "";
+    const candidate2Text = ( typeof(maxRate1.properties.joined.code) !== "undefined" )
+        ? `${maxRate2.properties.joined.candidate2} (${d3.format(",.2f")(votesByCandidates[maxRate2.properties.joined.candidate2].rateCountry)} %)`
+        : "";
+
     g.append("text")
             .attr("class", "caption")
             .attr("x", x.range()[0] + 30 )
@@ -99,7 +107,7 @@ export const drawVotesPercentageLegend = (votesStats, layer, svg) => {
             .attr("class", "bubble-label")
             .attr("text-anchor", "start")
             .attr("font-weight", "bold")
-            .text(`${maxRate1.properties.joined.candidate1} %` );
+            .text(`${candidate1Text}` );
     g1.append("text")
             .attr("class", "caption")
             .attr("x", x1.range()[0])
@@ -107,7 +115,7 @@ export const drawVotesPercentageLegend = (votesStats, layer, svg) => {
             .attr("class", "bubble-label")
             .attr("text-anchor", "start")
             .attr("font-weight", "bold")
-            .text(`${maxRate1.properties.joined.candidate2} %` );
+            .text(`${candidate2Text}` );
 
 };
 
@@ -267,7 +275,7 @@ export const drawCandidatesDonut = (votesStats, layer, svg) => {
 
     const keys = Object.keys(votesByCandidates);
     let data = keys.map( v => { return {
-                id: votesByCandidates[v].id,
+                candidateId: votesByCandidates[v].candidateId,
                 name: v,
                 value: votesByCandidates[v].total,
                 percent: votesByCandidates[v].rateCountry,
@@ -315,8 +323,8 @@ export const drawCandidatesDonut = (votesStats, layer, svg) => {
             .attr('d', arc)
             .attr("fill", (d, i) => {
                 return ( votesStats.electionsDate === "2019-11-10" )
-                    ? Config.CANDIDATES_2019[d.data.id].color
-                    : Config.CANDIDATES_2019_2[d.data.id].color;
+                    ? Config.CANDIDATES_2019[d.data.candidateId].color
+                    : Config.CANDIDATES_2019_2[d.data.candidateId].color;
             })
             .on("mouseover", function(d) {
                 d3.select(this)     

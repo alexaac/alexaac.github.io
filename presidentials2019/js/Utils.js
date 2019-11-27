@@ -70,7 +70,7 @@ export const repaint = () => {
     const svg6 = d3.select("#dorling-cartogram").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-60 60 " + Config.viewport_width + " " + Config.viewport_height);
     const svg7 = d3.select("#demers-cartogram").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-60 60 " + Config.viewport_width + " " + Config.viewport_height);
     const svg8 = d3.select("#noncont-cartogram").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "-60 60 " + Config.viewport_width + " " + Config.viewport_height);
-    const svg9 = d3.select("#candidates-donut").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "0 0 " + Config.width + " " + Config.height);
+    const svg9 = d3.select("#candidates-donut").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "0 0 " + Config.viewport_width + " " + Config.viewport_height);
     const svg10 = d3.select("#counties-treemap").append("svg").attr("class", "chart-group").attr("preserveAspectRatio", "xMidYMid").attr("viewBox", "0 0 " + Config.width + " " + Config.height);
 
     return [svg1, svg2, svg3, svg4, svg5, svg6, svg7, svg8, svg9, svg10];
