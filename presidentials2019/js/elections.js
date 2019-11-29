@@ -52,19 +52,26 @@ import * as DrawMaps from './DrawMaps.js'
         d3.json("./data/counties_bundle.json"),
         d3.csv("./data/round1/pv_RO_PRSD_FINAL.csv"),
         d3.csv("./data/round1/pv_SR_PRSD_FINAL.csv"),
+        d3.csv("./data/round1/pv_SR_PRSD-C_FINAL.csv"),
         d3.csv("./data/round2/pv_RO_PRSD_FINAL.csv"),
         d3.csv("./data/round2/pv_SR_PRSD_FINAL.csv"),
+        d3.csv("./data/round2/pv_SR_PRSD-C_FINAL.csv"),
     ]
 
     Promise.all(promises).then( data => {
         geographicData = data[0];
-        const electionsData2019RORound1 = data[1],
+        let electionsData2019RORound1 = data[1],
               electionsData2019SRRound1 = data[2],
-              electionsData2019RORound2 = data[3],
-              electionsData2019SRRound2 = data[4];
+              electionsData2019SRCRound1 = data[3],
+              electionsData2019RORound2 = data[4],
+              electionsData2019SRRound2 = data[5],
+              electionsData2019SRCRound2 = data[6];
 
-        electionsData2019Round1 = [...electionsData2019RORound1, ...electionsData2019SRRound1];
-        electionsData2019Round2 = [...electionsData2019RORound2, ...electionsData2019SRRound2];
+        electionsData2019SRCRound1 = Utils.reMapFields(electionsData2019SRCRound1);
+        electionsData2019SRCRound2 = Utils.reMapFields(electionsData2019SRCRound2);
+
+        electionsData2019Round1 = [...electionsData2019RORound1, ...electionsData2019SRRound1, ...electionsData2019SRCRound1];
+        electionsData2019Round2 = [...electionsData2019RORound2, ...electionsData2019SRRound2, ...electionsData2019SRCRound2];
 
         changeView(electionsData2019Round2, electionsDate);
     }).catch( 

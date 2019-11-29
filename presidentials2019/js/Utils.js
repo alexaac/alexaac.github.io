@@ -75,3 +75,24 @@ export const repaint = () => {
 
     return [svg1, svg2, svg3, svg4, svg5, svg6, svg7, svg8, svg9, svg10];
 }
+
+export const reMapFields = (data) => {
+    data.forEach( d => {
+        d.g1 = d.e1;
+        d.g2 = d.e2;
+        d.g3 = d.e3;
+        d.g4 = d.e4;
+        d.g5 = d.e5;
+        d.g6 = d.e6;
+        d.g7 = d.e7;
+        d.g8 = d.e8;
+        d.g9 = d.e9;
+        d.g10 = d.e10;
+        d.g11 = d.e11;
+        d.g12 = d.e12;
+        d.g13 = d.e13;
+        d.g14 = d.e14;
+    });
+
+    return data;
+}
