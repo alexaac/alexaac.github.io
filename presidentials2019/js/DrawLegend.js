@@ -99,6 +99,15 @@ export const drawVotesPercentageLegend = (votesStats, layer, svg) => {
     const candidate2Text = ( typeof(maxRate1.properties.joined.code) !== "undefined" )
         ? `${maxRate2.properties.joined.candidate2} (${d3.format(",.2f")(votesByCandidates[maxRate2.properties.joined.candidate2].rateCountry)} %)`
         : "";
+    const totalCandidate1Text = ( typeof(maxRate1.properties.joined.code) !== "undefined" )
+        ? `${maxRate2.properties.joined.candidate1} ${d3.format(",.0f")(votesByCandidates[maxRate2.properties.joined.candidate1].total)}`
+        : "";
+    const totalCandidate2Text = ( typeof(maxRate1.properties.joined.code) !== "undefined" )
+        ? `${maxRate2.properties.joined.candidate2} ${d3.format(",.0f")(votesByCandidates[maxRate2.properties.joined.candidate2].total)}`
+        : "";
+    const totalCountryText = ( typeof(maxRate1.properties.joined.code) !== "undefined" )
+        ? `TOTAL ${d3.format(",.0f")(votesByCandidates[maxRate2.properties.joined.candidate2].totalCountry)}`
+        : "";
 
     g.append("text")
             .attr("class", "caption")
@@ -116,6 +125,30 @@ export const drawVotesPercentageLegend = (votesStats, layer, svg) => {
             .attr("text-anchor", "start")
             .attr("font-weight", "bold")
             .text(`${candidate2Text}` );
+    g1.append("text")
+            .attr("class", "caption")
+            .attr("x", x1.range()[0])
+            .attr("y", 86)
+            .attr("class", "bubble-label")
+            .attr("text-anchor", "start")
+            .attr("font-weight", "bold")
+            .text(`${totalCandidate2Text}` );
+    g1.append("text")
+            .attr("class", "caption")
+            .attr("x", x1.range()[0])
+            .attr("y", 106)
+            .attr("class", "bubble-label")
+            .attr("text-anchor", "start")
+            .attr("font-weight", "bold")
+            .text(`${totalCandidate1Text}` );
+    g1.append("text")
+            .attr("class", "caption")
+            .attr("x", x1.range()[0])
+            .attr("y", 126)
+            .attr("class", "bubble-label")
+            .attr("text-anchor", "start")
+            .attr("font-weight", "bold")
+            .text(`${totalCountryText}` );
 
 };
 

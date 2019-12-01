@@ -78,6 +78,7 @@ export const repaint = () => {
 
 export const reMapFields = (data) => {
     data.forEach( d => {
+        d.c = d.d1;
         d.g1 = d.e1;
         d.g2 = d.e2;
         d.g3 = d.e3;
