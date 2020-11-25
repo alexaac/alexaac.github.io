@@ -1,8 +1,6 @@
-Here's a map on elections : [The many faces of elections - Cartograms / Romania
+Here's a map on elections : [The many faces of elections - Cartograms / Romania Presidential Elections 2019](https://alexaac.github.io/presidentials2019/).
 
-Presidential Elections 2019](https://alexaac.github.io/presidentials2019/).
-
-România Presidentials Elections : [Results as Geographical Data at administrative territorial unit (UAT) level](https://github.com/alexaac/presidentials2019Data)
+România Presidentials Elections Data : [Results as Geographical Data at administrative territorial unit (UAT) level](https://github.com/alexaac/presidentials2019Data)
 
 Aiudului Gorges Map from 2011 made with MapTiler, GDAL2Tiles and OpenLayers : [Aiudului Gorges](https://github.com/alexaac/harta-cheile-aiudului)
 
